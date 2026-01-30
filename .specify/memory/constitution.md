@@ -2,11 +2,11 @@
 
 <!--
 Sync Impact Report:
-- Version change: 1.0.0 → 1.1.0
-- Modified principles: replaced template with three new non-negotiable principles
-- Added sections: Additional Constraints, Development Workflow
-- Removed sections: Template placeholders
-- Templates requiring updates: plan-template.md, spec-template.md, tasks-template.md (✅ aligned, no direct changes needed)
+- Version change: 1.1.0 → 1.2.0
+- Modified principles: none
+- Added sections: Principle IV on Customer Data Security
+- Removed sections: none
+- Templates requiring updates: plan-template.md, spec-template.md, tasks-template.md (✅ already aligned)
 - Follow-up TODOs: Set original ratification date
 -->
 
@@ -21,20 +21,26 @@ All CSS must be defined globally or in shared stylesheets. Hardcoded CSS values 
 ### III. Structure Adherence (NON-NEGOTIABLE)
 All implementations MUST follow the defined project structure. Deviations require explicit approval and rationale. Consistency ensures maintainability and onboarding ease.
 
+### IV. Customer Data Security (NON-NEGOTIABLE)
+Personally Identifiable Information (PII), email addresses, phone numbers, and all sensitive customer data MUST NOT be logged, exposed in debug output, or hardcoded in development code. All data handling MUST follow secure practices: encryption in transit, secure storage, and restricted access. Violations require immediate remediation and post-incident review.
+
 ## Additional Constraints
 All code must avoid duplication, especially for UI and styling. CSS must be managed globally. Project structure is mandatory for all features and modules.
 
 ## Development Workflow
 Code reviews MUST verify:
+- No PII/sensitive data in logs, comments, or test fixtures
+- Secure data handling practices implemented
 - No redundant components
 - No hardcoded CSS
 - Structure adherence
+
 Any violation requires explicit justification and team approval.
 
 ## Governance
-This constitution supersedes all other practices for component, CSS, and structure management.
+This constitution supersedes all other practices for component, CSS, structure, and data security management.
 Amendments require documentation, team approval, and migration plan.
 All PRs/reviews must verify compliance with these principles.
 Versioning follows semantic rules: MAJOR for principle changes/removals, MINOR for additions, PATCH for clarifications.
 
-**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): original adoption date unknown | **Last Amended**: 2026-01-30
+**Version**: 1.2.0 | **Ratified**: TODO(RATIFICATION_DATE): original adoption date unknown | **Last Amended**: 2026-01-30
