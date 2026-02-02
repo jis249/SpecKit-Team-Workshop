@@ -2,51 +2,86 @@
 
 <!--
 Sync Impact Report:
-- Version change: 1.2.0 → 1.3.0
-- Modified principles: none
-- Added sections: Principle V on Git Commit Mandatory Practices
-- Removed sections: none
-- Templates requiring updates: plan-template.md, spec-template.md, tasks-template.md (✅ already aligned)
-- Follow-up TODOs: Set original ratification date
+- Version change: 1.3.0 → 2.0.0
+- Modified principles: 
+  * Principle I: Expanded to cover all shared functionality and services (not just UI components)
+  * Principle III: Enhanced to include infrastructure and pipeline consistency
+  * Principle IV: Expanded to include secrets management and audit trails
+  * Principle V: Enhanced with automated validation requirements
+- Added sections: 
+  * Principle VI: CI/CD Pipeline Discipline (DevOps core)
+  * Principle VII: Automated Testing Requirements (DevOps core)
+  * Principle VIII: Environment Parity (DevOps core)
+  * Principle IX: Configuration Management (DevOps core)
+- Removed sections: Infrastructure as Code, Observability & Monitoring, Deployment Safety (simplified to focus on core essentials)
+- Templates requiring updates: 
+  * plan-template.md (✅ updated - added DevOps & Infrastructure Context section, expanded Constitution Check)
+  * spec-template.md (✅ updated - added comprehensive Non-Functional Requirements section)
+  * tasks-template.md (✅ updated - added Phase 2.5 DevOps Foundation, expanded deployment tasks, added Production Readiness phase)
+- Follow-up TODOs: none
 -->
 
 ## Core Principles
 
-### I. Common Component Reuse (NON-NEGOTIABLE)
-All shared UI/functionality MUST use common components. Redundant components are strictly prohibited. Any new component must justify why an existing one cannot be reused.
+### I. Component & Service Reuse
+All shared functionality MUST use common implementations. No duplication of UI components, services, utilities, or infrastructure modules.
 
-### II. Global CSS Definition (NON-NEGOTIABLE)
-All CSS must be defined globally or in shared stylesheets. Hardcoded CSS values in components or inline styles are strictly forbidden. Styling must be consistent and maintainable across the project.
+### II. Global CSS
+All CSS MUST be defined globally or in shared stylesheets. No hardcoded styles or inline CSS.
 
-### III. Structure Adherence (NON-NEGOTIABLE)
-All implementations MUST follow the defined project structure. Deviations require explicit approval and rationale. Consistency ensures maintainability and onboarding ease.
+### III. Structure Adherence
+All code, infrastructure, and documentation MUST follow defined project structure. Deviations require approval.
 
-### IV. Customer Data Security (NON-NEGOTIABLE)
-Personally Identifiable Information (PII), email addresses, phone numbers, and all sensitive customer data MUST NOT be logged, exposed in debug output, or hardcoded in development code. All data handling MUST follow secure practices: encryption in transit, secure storage, and restricted access. Violations require immediate remediation and post-incident review.
+### IV. Security & Secrets
+- No PII/sensitive data in logs or code
+- All secrets in secure vaults (never in version control)
+- Encryption in transit (TLS 1.2+) and at rest
+- Security scanning in CI/CD pipelines
 
-### V. Git Commit Mandatory Practices (NON-NEGOTIABLE)
-All commits MUST have meaningful, descriptive messages (minimum 5 words) following Conventional Commit format (feat:, fix:, refactor:, docs:, test:, style:). Commits MUST be small, logical units of work. Branch discipline is mandatory: never commit to main/master, always use feature branches (feature/*, fix/*, refactor/*). Code review before push is required. Prohibited: sensitive data, large binaries, force pushes to shared branches, commented-out code, and debugging statements. Violations require warning and amendment on first occurrence; repeated violations result in code review rejection.
+### V. Git Discipline
+- Conventional Commits format (feat:, fix:, refactor:, docs:, test:, chore:, ci:)
+- Feature branches only (never commit to main/master)
+- PR review required before merge
+- No secrets, large binaries, or debugging code in commits
 
-## Additional Constraints
-All code must avoid duplication, especially for UI and styling. CSS must be managed globally. Project structure is mandatory for all features and modules.
+### VI. CI/CD Pipelines
+- Automated pipelines for all services (lint, test, security scan, build)
+- Manual approval gates for production
+- Failed builds block merges
+- Build time <10 minutes
 
-## Development Workflow
-Code reviews MUST verify:
-- No PII/sensitive data in logs, comments, or test fixtures
-- Secure data handling practices implemented
-- Git commit message quality and format (Conventional Commits)
-- Branch discipline (no direct commits to main/master)
-- Small, logical commit units
-- No redundant components
-- No hardcoded CSS
+### VII. Automated Testing
+- Unit tests >80% coverage
+- Integration, contract, and e2e tests for critical paths
+- Tests run in CI on every commit
+- Test failures block merges
+
+### VIII. Environment Parity
+- Dev, staging, prod maintain parity (topology, versions, dependencies)
+- Differences limited to config values (env vars)
+- Containerization eliminates "works on my machine"
+
+### IX. Configuration Management
+- 12-factor app: all config in env vars or config services
+- No hardcoded configuration
+- Validated at startup
+- Secrets encrypted and access-controlled
+
+## Code Review Requirements
+
+All PRs MUST verify:
+- No secrets or sensitive data
+- Conventional commit format
+- No redundant code
 - Structure adherence
-
-Any violation requires explicit justification and team approval.
+- Tests passing
+- CI/CD configs valid
 
 ## Governance
-This constitution supersedes all other practices for component, CSS, structure, data security, and git commit management.
-Amendments require documentation, team approval, and migration plan.
-All PRs/reviews must verify compliance with these principles.
-Versioning follows semantic rules: MAJOR for principle changes/removals, MINOR for additions, PATCH for clarifications.
 
-**Version**: 1.3.0 | **Ratified**: TODO(RATIFICATION_DATE): original adoption date unknown | **Last Amended**: 2026-02-02
+**Amendments**: Require proposal, team approval, and migration plan.  
+**Versioning**: MAJOR (breaking changes), MINOR (additions), PATCH (clarifications).  
+**Enforcement**: Warning first, rejection on repeat. Critical violations (security) trigger immediate incident response.  
+**Compliance**: Automated checks enforced. Quarterly audits conducted.
+
+**Version**: 2.0.0 | **Ratified**: 2026-02-02 | **Last Amended**: 2026-02-02
